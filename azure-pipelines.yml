@@ -2,10 +2,7 @@
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
-- task: HCLAppScanOnCloud@2
-  inputs:
-    scantype: 'static'
-    scanMethod: 'IRX'
+
 trigger:
 - main
 
@@ -20,3 +17,14 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+
+- task: HCLAppScanOnCloud@2
+  inputs:
+    AppSecTestService: 'asoc-cred'
+    applications: '5122bf79-751c-4836-8dcd-8ec90a611e77'
+    scanname: 'azure-dast'
+    scantype: 'dynamic'
+    dynamicType: 'DAST'
+    scanURL: 'https://demo.testfire.net?mode=demo'
+    network: 'public'
+    optimization: 'fastest'
