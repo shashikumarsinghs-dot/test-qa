@@ -1,0 +1,28 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool: qa-pool1
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
+- task: HCLAppScanOnCloud@2
+  inputs:
+    AppSecTestService: 'asoc-snow'
+    applications: 'a0ef0a08-92bb-4359-9f46-da6c1de5c0a8'
+    scanname: 'azure-dast'
+    scantype: 'dynamic'
+    dynamicType: 'DAST'
+    scanURL: 'https://demo.testfire.net?mode=demo'
+    network: 'public'
+    optimization: 'fastest'
